@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class ExactClick extends React.Component {
+class ExactClick extends Component {
     container;
 
     componentDidMount() {

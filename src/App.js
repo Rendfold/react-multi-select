@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Select from './Select';
+import MultiSelect from './MultiSelect/MultiSelect';
+import MultiSelectUncontrolled from './MultiSelect/MultiSelectUncontrolled';
 
 class App extends Component {
   constructor (props) {
@@ -11,7 +12,22 @@ class App extends Component {
     };
   }
 
+  debounce = (func, delay) => {
+    let inDebounce;
+    return function() {
+      const context = this;
+      const args = arguments;
+      clearTimeout(inDebounce);
+      inDebounce = setTimeout(() => func.apply(context, args), delay);
+    }
+  }
+
+  handleSearch (searchString) {
+    debugger;
+  }
+
   handleOpen () {
+    //here will be request
     this.setState({
       data: [{
           id: 1,
@@ -25,30 +41,21 @@ class App extends Component {
     });
   }
 
-  handleItemClick (item) {
-    let newValue = this.state.value.concat(Object.assign(item));
-
+  onChange (newValue) {
     this.setState({
       value: newValue
-    });
-  }
-
-  handleRemoveItem (item) {
-    let itemIndex = this.state.value.indexOf(item);
-    
-    this.setState({
-      value: this.state.value.slice(0, itemIndex).concat(this.state.value.slice(itemIndex+1))
     })
   }
 
   render() {
     return (
-      <Select 
+      <MultiSelectUncontrolled
+          onChange={(newValue) => this.onChange(newValue)}
           data={this.state.data} 
           value={this.state.value} 
-          handleOpen={() => this.handleOpen()} 
-          handleItemClick={(item) => this.handleItemClick(item)} 
-          handleRemoveItem={(item) => this.handleRemoveItem(item)}/>
+          handleOpen={() => this.handleOpen()}
+          search={true}
+          handleSearch={this.debounce((searchString) => this.handleSearch(searchString), 5000)}/>
     );
   }
 }

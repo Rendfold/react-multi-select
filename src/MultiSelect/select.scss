@@ -8,14 +8,15 @@
         border-bottom-left-radius: 5px;
         border-bottom-right-radius: 5px;
         position: relative;
-        height: 30px;
         display: flex;
         align-items: center;
 
         &-container{
+            height: 30px;
             flex: 1;
             display: flex;
             align-items: center;
+            cursor: pointer;
         }
 
         &-item {
@@ -29,6 +30,7 @@
             &-text {
                 flex: 1;
                 padding-right: 5px;
+                cursor: auto;
             }
 
             &-clear {
@@ -81,11 +83,11 @@
     animation-timing-function: linear;
 }
 
-@-webkit-keyframes anim-loading-rotate {
-    0% { -webkit-transform: rotate(360deg); }
-    33% { -webkit-transform: rotate(240deg); }
-    66% { -webkit-transform: rotate(120deg); }
-    100% { -webkit-transform: rotate(0deg); }
+@keyframes anim-loading-rotate {
+    0% { transform: rotate(360deg); }
+    33% { transform: rotate(240deg); }
+    66% { transform: rotate(120deg); }
+    100% { transform: rotate(0deg); }
 }
 
 .item {
