@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MultiSelect from './MultiSelect/MultiSelect';
 import MultiSelectUncontrolled from './MultiSelect/MultiSelectUncontrolled';
+import debounce from 'lodash.debounce';
 
 class App extends Component {
   constructor (props) {
@@ -10,16 +11,6 @@ class App extends Component {
       data: [],
       value: []
     };
-  }
-
-  debounce = (func, delay) => {
-    let inDebounce;
-    return function() {
-      const context = this;
-      const args = arguments;
-      clearTimeout(inDebounce);
-      inDebounce = setTimeout(() => func.apply(context, args), delay);
-    }
   }
 
   handleSearch (searchString) {
@@ -55,7 +46,7 @@ class App extends Component {
           value={this.state.value} 
           handleOpen={() => this.handleOpen()}
           search={true}
-          handleSearch={this.debounce((searchString) => this.handleSearch(searchString), 5000)}/>
+          handleSearch={debounce((searchString) => this.handleSearch(searchString), 5000)}/>
     );
   }
 }
