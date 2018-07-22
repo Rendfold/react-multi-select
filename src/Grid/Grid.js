@@ -16,9 +16,11 @@ class Grid extends Component {
         return (
             <div className="grid">
                 <GridHeader />
-                <GridBody />
+                <GridBody data={[['asd', 'asd']]} />
                 <GridFooter />
             </div>
         );
     }
 }
+
+export default Grid;

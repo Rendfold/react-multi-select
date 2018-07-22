@@ -7,10 +7,6 @@ import './select.scss';
 class MultiSelect extends Component {
   constructor (props) {
     super(props);
-
-    this.state = {
-      toggled: false
-    };
   }
 
   dataItems () {
