@@ -15,7 +15,15 @@ class GridOptions extends Component {
         this.setState({
           popoverOpen: !this.state.popoverOpen
         });
-    }   
+    }
+
+    generateColumnsList () {
+        this.props.columns.map((item, index) => {
+            return (
+                <li key={index}>{item.name}</li>
+            )
+        });
+    }
 
     render() {
         return (
@@ -25,7 +33,11 @@ class GridOptions extends Component {
                 </Button>
         
                 <Popover placement="bottom" isOpen={this.state.popoverOpen} target="Popover1" toggle={() => this.toggle()}>
-                    <PopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverBody>
+                    <PopoverBody>
+                        <ul>
+                            {this.generateColumnsList()}
+                        </ul>
+                    </PopoverBody>
                 </Popover>
 
             </div>
