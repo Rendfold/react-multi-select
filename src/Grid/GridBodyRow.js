@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import * as Fa from 'react-icons/lib/fa';
 import GridBodyRowCell from './GridBodyRowCell';
+import './GridBodyRow.scss';
 
 class GridBodyRow extends Component {
     constructor (props) {
@@ -12,19 +12,18 @@ class GridBodyRow extends Component {
     }
 
     generateCells () {
-        return this.props.row.map((cell, index) => {
-            return (
-                <GridBodyRowCell cell={cell} key={index} />
-            );
-        });
+        // return this.props.row.map((cell, index) => {
+        //     return (
+        //         <GridBodyRowCell cell={cell} key={index} />
+        //     );
+        // });
     }
 
     render() {
         return (
-            <div className="grid__body-row">
-                <div className="filter-button"><Fa.FaFilter /></div>
+            <tr className="grid__body-row">
                 {this.generateCells()}
-            </div>
+            </tr>
         );
     }
 }

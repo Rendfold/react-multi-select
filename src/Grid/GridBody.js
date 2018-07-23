@@ -11,18 +11,18 @@ class GridBody extends Component {
     }
 
     generateRows () {
-        return this.props.data.map((row) => {
+        return this.props.rows.map((row, index) => {
             return (
-                <GridBodyRow row={row} />
+                <GridBodyRow row={row} key={index} />
             );
         })
     }
 
     render() {
         return (
-            <div className="grid__body">
+            <tbody className="grid__body">
                 {this.generateRows()}
-            </div>
+            </tbody>
         );
     }
 }

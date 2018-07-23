@@ -5,10 +5,6 @@ import classname from 'classnames';
 import './select.scss';
 
 class MultiSelect extends Component {
-  constructor (props) {
-    super(props);
-  }
-
   dataItems () {
     if (this.props.data.length) {
       return this.props.data.map((item) => {
@@ -66,7 +62,7 @@ class MultiSelect extends Component {
           <div className="select__clear-button" onClick={() => this.props.onChange([])}><MD.MdClose /></div>
           <div className="select__toggle-button" onClick={() => this.props.handleOpen()}><MD.MdArrowDropDown /></div>
         </div>
-        <div className={classname('test', { 'test2': this.props.toggled })}>
+        <div className={classname('data-view', { 'data-view--toggled': this.props.toggled })}>
           { this.props.search ? 
             (<div>
               <input type="text" onChange={(e) => {this.props.handleSearch(e.target.value)}}/>

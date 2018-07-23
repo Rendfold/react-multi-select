@@ -1,0 +1,32 @@
+.grid__header-cell {
+    border: 1px solid #eee;
+    border-bottom: 0px;
+    text-align: center;
+    
+    &:not(:last-child) {
+        border-right: 0px;
+    }
+    
+    .filter-button {
+        position: absolute;
+        top: 0px;
+        left: 4px;
+    }
+
+    &:not(:first-child) {
+        .filter-button {
+            display: none;
+        }
+    }
+}
+
+.grid-filters {
+    height: 0px;
+    overflow: hidden;
+    border: 0px;
+    padding: 0px;
+    display: none;
+    &.grid-filters--toggled {
+        height: 24px;
+    }
+}

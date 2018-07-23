@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import './GridBodyRowCell.scss';
 
 class GridBodyRowCell extends Component {
     render() {
         return (
-            <div className="grid__body-row-cell">
+            <td className="grid__body-row-cell">
+                
                 {this.props.cell.name}
-            </div>
+            </td>
         );
     }
 }

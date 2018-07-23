@@ -1,0 +1,15 @@
+.grid__footer {
+    &-table-cell {
+        display: block; 
+        box-sizing: border-box; 
+        clear: both
+    }
+
+    &-left-part {
+        float: left;
+    }
+
+    &-right-part {
+        float: right;
+    }
+}

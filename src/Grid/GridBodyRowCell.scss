@@ -1,3 +1,8 @@
 .grid__body-row-cell {
+    border: 1px solid #eee;
+    text-align: center;
     
+    &:not(:last-child) {
+        border-right: 0px;
+    }
 }

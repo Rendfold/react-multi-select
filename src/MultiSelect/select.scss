@@ -60,18 +60,17 @@
     }
 }
 
-.test {
+.data-view {
     max-height: 0px;
     overflow: hidden;
-}
-
-.test.test2 {
-    overflow: initial;
-    max-height: 300px;
-    border: 1px solid #eee;
-    border-top: 0px;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+    &.data-view--toggled {
+        overflow: initial;
+        max-height: 300px;
+        border: 1px solid #eee;
+        border-top: 0px;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
 }
 
 .loading-icon {
