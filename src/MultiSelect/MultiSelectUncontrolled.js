@@ -40,7 +40,7 @@ class MultiSelectUncontrolled extends Component {
         value={this.props.value}
         onChange={(newValue) => this.props.onChange(newValue)}
         handleOpen={() => this.handleOpen()} 
-        handleToggleOnItemAdd={() => {this.handleToggleOnItemAdd()}} 
+        handleToggleOnItemAdd={() => this.handleToggleOnItemAdd()} 
         search={this.props.search}
         handleSearch={(searchString) => this.props.handleSearch(searchString)} />
     );

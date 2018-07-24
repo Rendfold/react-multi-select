@@ -14,10 +14,16 @@ class GridHeader extends Component {
     generateHeaderCells () {
         return this.props.columns.map((headerCell, index) => {
             if(headerCell.visible) {
+                let sortedColumn = this.props.order.find((sortedItem) => {
+                    return headerCell.name in sortedItem;
+                });
+
                 return (
                     <GridHeaderCell 
                         filterToggled={this.props.filterToggled} 
-                        handleFilterToggle={() => this.props.handleFilterToggle()} 
+                        handleFilterToggle={(e) => this.props.handleFilterToggle(e)} 
+                        handleSorting={() => this.props.handleSorting(headerCell)}
+                        sorted={sortedColumn ? sortedColumn[headerCell.name] : undefined}
                         headerCell={headerCell} 
                         key={index} />
                 );

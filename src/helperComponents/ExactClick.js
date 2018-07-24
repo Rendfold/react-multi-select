@@ -15,11 +15,12 @@ class ExactClick extends Component {
         let {
             onClick,
             children,
+            Container = 'div',
             ...props
         } = this.props;
 
         return (
-            <div ref={container => this.container = container} {...props}>{children}</div>
+            <Container ref={container => this.container = container} {...props}>{children}</Container>
         );
     }
 }

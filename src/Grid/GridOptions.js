@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './GridOptions.scss';
-import { Button, Popover, PopoverHeader, PopoverBody } from 'reactstrap';
+import { Button, Popover, PopoverBody, ListGroup, ListGroupItem } from 'reactstrap';
 
 class GridOptions extends Component {
     constructor (props) {
@@ -18,9 +18,9 @@ class GridOptions extends Component {
     }
 
     generateColumnsList () {
-        this.props.columns.map((item, index) => {
+        return this.props.columns.map((item, index) => {
             return (
-                <li key={index}>{item.name}</li>
+                <ListGroupItem key={index} active={item.visible} onClick={() => this.props.handleColumnConfigClick(item)}>{item.name}</ListGroupItem>
             )
         });
     }
@@ -28,15 +28,19 @@ class GridOptions extends Component {
     render() {
         return (
             <div className="grid__options">
+                <Button onClick={() => this.props.removeSorting()}>
+                    სორტირების წაშლა
+                </Button>
+
                 <Button id="Popover1" onClick={() => this.toggle()}>
-                    Launch Popover
+                    სვეტები
                 </Button>
         
                 <Popover placement="bottom" isOpen={this.state.popoverOpen} target="Popover1" toggle={() => this.toggle()}>
                     <PopoverBody>
-                        <ul>
+                        <ListGroup>
                             {this.generateColumnsList()}
-                        </ul>
+                        </ListGroup>
                     </PopoverBody>
                 </Popover>
 

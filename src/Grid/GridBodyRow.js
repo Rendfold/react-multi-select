@@ -12,11 +12,15 @@ class GridBodyRow extends Component {
     }
 
     generateCells () {
-        // return this.props.row.map((cell, index) => {
-        //     return (
-        //         <GridBodyRowCell cell={cell} key={index} />
-        //     );
-        // });
+        return this.props.columns.map((column, index) => {
+            if (column.visible) {
+                return (
+                    <GridBodyRowCell value={this.props.row[column.name]} valueType={column.type} key={index} />
+                );
+            }
+
+            return null;
+        });
     }
 
     render() {

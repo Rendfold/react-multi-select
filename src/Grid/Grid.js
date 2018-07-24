@@ -5,25 +5,35 @@ import GridFooter from './GridFooter';
 import GridOptions from './GridOptions';
 import './Grid.scss';
 
+import { DragDropContextProvider } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+
 class Grid extends Component {
     constructor (props) {
         super(props);
-    
-        this.state = {
-
-        }
     }
 
     render() {
         return (
-            <div className="container-tester">
-                <GridOptions columns={this.props.data.columns} />
-                <table className="grid">
-                    <GridHeader columns={this.props.data.columns} handleFilterToggle={() => this.props.handleFilterToggle()} filterToggled={this.props.filterToggled} />
-                    <GridBody rows={this.props.data.records} />
-                </table>
-                <GridFooter />
-            </div>
+            <DragDropContextProvider backend={HTML5Backend}>
+                <div className="container-tester">
+                    <GridOptions 
+                        columns={this.props.data.columns} 
+                        handleColumnConfigClick={(item) => this.props.handleColumnConfigClick(item)} 
+                        removeSorting={() => this.props.removeSorting()}/>
+                    <table className="grid">
+                        <GridHeader 
+                            columns={this.props.data.columns} 
+                            order={this.props.data.order}
+                            handleFilterToggle={(e) => this.props.handleFilterToggle(e)}
+                            handleSorting={(headerCell) => this.props.handleSorting(headerCell)}
+                            filterToggled={this.props.filterToggled}
+                            />
+                        <GridBody rows={this.props.data.records} columns={this.props.data.columns} />
+                    </table>
+                    <GridFooter />
+                </div>
+            </DragDropContextProvider>
         );
     }
 }

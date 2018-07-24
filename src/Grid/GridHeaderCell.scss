@@ -2,7 +2,8 @@
     border: 1px solid #eee;
     border-bottom: 0px;
     text-align: center;
-    
+    position: relative;
+
     &:not(:last-child) {
         border-right: 0px;
     }
@@ -11,6 +12,12 @@
         position: absolute;
         top: 0px;
         left: 4px;
+    }
+
+    .sort-button {
+        position: absolute;
+        top: 0px;
+        right: 4px;
     }
 
     &:not(:first-child) {
