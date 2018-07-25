@@ -33,7 +33,11 @@
     border: 0px;
     padding: 0px;
     display: none;
-    &.grid-filters--toggled {
+    &.grid-filters-input--toggled {
         height: 24px;
+    }
+    &.grid-filters-multiselect--toggled {
+        height: 24px;
+        display: block;
     }
 }

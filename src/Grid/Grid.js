@@ -5,8 +5,11 @@ import GridFooter from './GridFooter';
 import GridOptions from './GridOptions';
 import './Grid.scss';
 
-import { DragDropContextProvider } from 'react-dnd';
+
+import { DragDropContext } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend';
+
+@DragDropContext(HTML5Backend)
 
 class Grid extends Component {
     constructor (props) {
@@ -15,25 +18,24 @@ class Grid extends Component {
 
     render() {
         return (
-            <DragDropContextProvider backend={HTML5Backend}>
-                <div className="container-tester">
-                    <GridOptions 
+            <div className="container-tester">
+                <GridOptions 
+                    columns={this.props.data.columns} 
+                    handleColumnConfigClick={(item) => this.props.handleColumnConfigClick(item)} 
+                    removeSorting={() => this.props.removeSorting()}/>
+                <table className="grid">
+                    <GridHeader 
                         columns={this.props.data.columns} 
-                        handleColumnConfigClick={(item) => this.props.handleColumnConfigClick(item)} 
-                        removeSorting={() => this.props.removeSorting()}/>
-                    <table className="grid">
-                        <GridHeader 
-                            columns={this.props.data.columns} 
-                            order={this.props.data.order}
-                            handleFilterToggle={(e) => this.props.handleFilterToggle(e)}
-                            handleSorting={(headerCell) => this.props.handleSorting(headerCell)}
-                            filterToggled={this.props.filterToggled}
-                            />
-                        <GridBody rows={this.props.data.records} columns={this.props.data.columns} />
-                    </table>
-                    <GridFooter />
-                </div>
-            </DragDropContextProvider>
+                        order={this.props.data.order}
+                        handleFilterToggle={(e) => this.props.handleFilterToggle(e)}
+                        handleSorting={(headerCell) => this.props.handleSorting(headerCell)}
+                        moveColumn={(dragIndex, hoverIndex) => this.props.moveColumn(dragIndex, hoverIndex)}
+                        filterToggled={this.props.filterToggled}
+                        />
+                    <GridBody rows={this.props.data.records} columns={this.props.data.columns} />
+                </table>
+                <GridFooter total={this.props.data.total} page={this.props.data.page} items={this.props.data.items} onItemsAmountChange={(value) => this.props.onItemsAmountChange(value)} />
+            </div>
         );
     }
 }

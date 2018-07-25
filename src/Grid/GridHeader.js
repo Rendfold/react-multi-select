@@ -11,6 +11,7 @@ class GridHeader extends Component {
         };
     }
 
+
     generateHeaderCells () {
         return this.props.columns.map((headerCell, index) => {
             if(headerCell.visible) {
@@ -24,8 +25,11 @@ class GridHeader extends Component {
                         handleFilterToggle={(e) => this.props.handleFilterToggle(e)} 
                         handleSorting={() => this.props.handleSorting(headerCell)}
                         sorted={sortedColumn ? sortedColumn[headerCell.name] : undefined}
+                        moveColumn={(dragIndex, hoverIndex) => this.props.moveColumn(dragIndex, hoverIndex)}
                         headerCell={headerCell} 
-                        key={index} />
+                        id={index}
+                        key={index}
+                        index={index} />
                 );
             }
             else {

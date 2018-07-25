@@ -11,7 +11,7 @@ class MultiSelectUncontrolled extends Component {
     };
   }
 
-  handleOpen () {
+  handleOpen (e) {
     if (this.state.toggled) {
         this.setState({
             toggled: false,
@@ -22,7 +22,8 @@ class MultiSelectUncontrolled extends Component {
             toggled: true
         });
 
-        this.props.handleOpen();
+        debugger;
+        this.props.handleOpen(e);
     }
   }
   
@@ -32,14 +33,19 @@ class MultiSelectUncontrolled extends Component {
     });
   }
 
+  handleSearch (searchString) {
+    debugger;
+  }
+
   render() {
     return (
-      <MultiSelect 
+      <MultiSelect
+        className={this.props.className}
         toggled={this.state.toggled}
         data={this.props.data} 
         value={this.props.value}
         onChange={(newValue) => this.props.onChange(newValue)}
-        handleOpen={() => this.handleOpen()} 
+        handleOpen={(e) => this.handleOpen(e)} 
         handleToggleOnItemAdd={() => this.handleToggleOnItemAdd()} 
         search={this.props.search}
         handleSearch={(searchString) => this.props.handleSearch(searchString)} />

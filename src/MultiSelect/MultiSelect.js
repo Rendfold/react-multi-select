@@ -54,18 +54,18 @@ class MultiSelect extends Component {
 
   render() {
     return (
-      <div className="select">
+      <div className={classname("select", this.props.className)}>
         <div className={classname('select__value', { 'select__value--toggled': this.props.toggled })}>
-          <ExactClick className="select__value-container"  onClick={() => this.props.handleOpen()}>
+          <ExactClick className="select__value-container"  onClick={(e) => this.props.handleOpen(e)}>
               { this.generateSelectedItems() }
           </ExactClick>
           <div className="select__clear-button" onClick={() => this.props.onChange([])}><MD.MdClose /></div>
-          <div className="select__toggle-button" onClick={() => this.props.handleOpen()}><MD.MdArrowDropDown /></div>
+          <div className="select__toggle-button" onClick={(e) => this.props.handleOpen(e)}><MD.MdArrowDropDown /></div>
         </div>
         <div className={classname('data-view', { 'data-view--toggled': this.props.toggled })}>
           { this.props.search ? 
             (<div>
-              <input type="text" onChange={(e) => {this.props.handleSearch(e.target.value)}}/>
+              <input className="data-view__search form-control" type="text" onChange={(e) => {this.props.handleSearch(e.target.value)}}/>
             </div>)
             :
             null

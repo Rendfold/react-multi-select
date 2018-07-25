@@ -62,7 +62,7 @@ class GridFooter extends Component {
             <div className="grid__footer clearfix">
                 <div className="grid__footer-table-cell">
                     <div className="grid__footer-left-part">
-                        <select>
+                        <select value={this.props.items} onChange={(event) => this.props.onItemsAmountChange(event.target.value)}>
                             <option value="10">10</option>
                             <option value="25">25</option>
                             <option value="50">50</option>

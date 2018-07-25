@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Grid from './Grid';
+import update from 'immutability-helper';
 
 class Test extends Component {
     constructor (props) {
@@ -101,9 +102,10 @@ class Test extends Component {
                         },
                     }
                 ],
-                order: [
-                ],
-                total: 1,
+                order: [],
+                total: 250,
+                page: 1,
+                items: 25
             },
             filterToggled: false,
 
@@ -119,6 +121,18 @@ class Test extends Component {
         this.state.data.order
     }
 
+    checkIfAlreadySorted (column) {
+        let sortedColumnIndex = this.state.data.order.findIndex((sortedItem) => {
+            return column.name in sortedItem;
+        });
+
+        let sortedColumn = this.state.data.order.find((sortedItem) => {
+            return column.name in sortedItem;
+        });
+
+        return sortedColumn ? {index: sortedColumnIndex, column: sortedColumn} : null;
+    }
+
     handleSorting (headerCell) {
         if (!this.state.data.order.length) {
             this.setState({
@@ -132,16 +146,11 @@ class Test extends Component {
         }
         else {
             let tempArray = this.state.data.order.slice();
+            let sorted = this.checkIfAlreadySorted(headerCell);
+            let sortedColumnIndex = sorted.index;
+            let sortedColumn = sorted.column;
 
-            let sortedColumnIndex = this.state.data.order.findIndex((sortedItem) => {
-                return headerCell.name in sortedItem;
-            });
-
-            let sortedColumn = this.state.data.order.find((sortedItem) => {
-                return headerCell.name in sortedItem;
-            });
-
-            if (sortedColumn) {
+            if (sorted) {
                 if (sortedColumn[headerCell.name] === 'ASC'){
                     tempArray[sortedColumnIndex][headerCell.name] = 'DESC';
 
@@ -150,7 +159,7 @@ class Test extends Component {
                             ...this.state.data,
                             order: tempArray.concat(tempArray.splice(sortedColumnIndex, 1)[0])
                         }
-                    })
+                    });
                 }
                 else if (sortedColumn[headerCell.name] === 'DESC') {
                     this.setState({
@@ -158,7 +167,7 @@ class Test extends Component {
                             ...this.state.data,
                             order: tempArray.slice(0, sortedColumnIndex).concat(tempArray.slice(sortedColumnIndex+1))
                         }
-                    })
+                    });
                 }
             }
             else {
@@ -177,9 +186,15 @@ class Test extends Component {
 
     handleColumnConfigClick (item) {
         if (item.visible) {
+            let sortedColumn = this.checkIfAlreadySorted(item);
+            let tempArray = this.state.data.order.slice();
+
+            
             this.setState({
                 data: {
                     ...this.state.data,
+                    order: sortedColumn ? tempArray.slice(0, sortedColumn.index).concat(tempArray.slice(sortedColumn.index+1)) 
+                            : this.state.data.order,
                     columns: this.state.data.columns.map(column => {
                         return column.name === item.name ? {
                             ...column,
@@ -216,6 +231,21 @@ class Test extends Component {
         })
     }
 
+    moveColumn (dragIndex, hoverIndex) {
+		let columns = this.state.data.columns.slice();
+        let dragedColumn = columns[dragIndex];
+
+        columns[dragIndex] = columns[hoverIndex];
+        columns[hoverIndex] = dragedColumn;
+
+		this.setState({
+            data: {
+                ...this.state.data,
+                columns: columns
+            }
+        });
+	}
+
     render() {
         return (
         <Grid 
@@ -224,7 +254,8 @@ class Test extends Component {
             handleFilterToggle={(e) => this.handleFilterToggle(e)}
             handleSorting={(headerCell) => this.handleSorting(headerCell)}
             removeSorting={() => this.removeSorting()}
-            filterToggled={this.state.filterToggled} />
+            filterToggled={this.state.filterToggled}
+            moveColumn={(dragIndex, hoverIndex) => this.moveColumn(dragIndex, hoverIndex)} />
         );
     }
 }

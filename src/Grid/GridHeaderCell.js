@@ -1,77 +1,57 @@
 import React, { Component } from 'react';
 import './GridHeaderCell.scss';
-import * as Fa from 'react-icons/lib/fa';
-import * as Md from 'react-icons/lib/md'
+import TextInput from '../TextInput/TextInput';
+import MultiSelectUncontrolled from '../MultiSelect/MultiSelectUncontrolled';
+import ExactClick from '../helperComponents/ExactClick';
 
 import classname from 'classnames';
 import { findDOMNode } from 'react-dom'
-import { 	
-    DragSource,
-	DropTarget,
-	ConnectDropTarget,
-	ConnectDragSource,
-	DropTargetMonitor,
-	DropTargetConnector,
-	DragSourceConnector,
-    DragSourceMonitor 
-} from 'react-dnd';
-import { XYCoord } from 'dnd-core'
+import { DragSource, DropTarget } from 'react-dnd';
+import debounce from 'lodash.debounce';
+import * as Fa from 'react-icons/lib/fa';
+import * as Md from 'react-icons/lib/md';
 
 const boxSource = {
-    beginDrag(props) {
+    beginDrag (props) {
 		return {
 			id: props.id,
 			index: props.index,
 		}
-	},
+	}
 }
 
 const boxDrop = {
-    hover(props, monitor, component) {
+    hover (props, monitor, component) {
 		if (!component) {
 			return null
 		}
-		const dragIndex = monitor.getItem().index
-		const hoverIndex = props.index
+		const dragIndex = monitor.getItem().index;
+		const hoverIndex = props.index;
 
-		// Don't replace items with themselves
 		if (dragIndex === hoverIndex) {
-			return
+			return;
 		}
 
-		// Determine rectangle on screen
-		const hoverBoundingRect = (findDOMNode(component)).getBoundingClientRect()
+		const hoverBoundingRect = (findDOMNode(component)).getBoundingClientRect();
 
-		// Get vertical middle
-		const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
+		const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
 
-		// Determine mouse position
-		const clientOffset = monitor.getClientOffset()
+		const clientOffset = monitor.getClientOffset();
 
-		// Get pixels to the top
-		const hoverClientY = (clientOffset).y - hoverBoundingRect.top
+		const hoverClientY = (clientOffset).y - hoverBoundingRect.top;
 
-		// Only perform the move when the mouse has crossed half of the items height
-		// When dragging downwards, only move when the cursor is below 50%
-		// When dragging upwards, only move when the cursor is above 50%
-		// Dragging downwards
+		// Only perform the move when the mouse has crossed half of the items width
 		if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-			return
+			return;
 		}
 
-		// Dragging upwards
 		if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-			return
+			return;
 		}
 
-		// Time to actually perform the action
-		props.moveCard(dragIndex, hoverIndex)
+		props.moveColumn(dragIndex, hoverIndex);
 
-		// Note: we're mutating the monitor item here!
-		// Generally it's better to avoid mutations,
-		// but it's good here for the sake of performance
-		// to avoid expensive index searches.
-		monitor.getItem().index = hoverIndex
+		monitor.getItem().index = hoverIndex;
 	},
 }
 
@@ -85,27 +65,53 @@ const boxDrop = {
 }))
 
 class GridHeaderCell extends Component {
+	handleOpen (e) {
+		//e.nativeEvent.stopImmediatePropagation();
+	}
 
+	getFilters () {
+		let headerCell = this.props.headerCell;
+
+		if (headerCell.type === 'text') {
+			return (
+				<TextInput
+					className= {
+						classname('grid-filters', 
+						{ 'grid-filters-input--toggled': this.props.filterToggled, 'form-control': this.props.filterToggled })
+					} 
+				/>
+			)
+		}
+		else if (headerCell.type === 'dictionary' && headerCell.options.context === 'enum') {
+			return (
+				<MultiSelectUncontrolled
+					className= {classname('grid-filters', { 'grid-filters-multiselect--toggled': this.props.filterToggled})}
+					onChange={(newValue) => this.onChange(newValue)}
+					data={[]} 
+					value={[]} 
+					handleOpen={(e) => console.log(e)}
+					search={true}
+					handleSearch={debounce((searchString) => this.handleSearch(searchString), 5000)}/>
+			)
+		}
+	}
 
     render () {
-        return ( this.props.connectDropTarget &&
-            this.props.connectDragSource(
-                <th className="grid__header-cell" onClick={() => this.props.handleSorting()} id="APPOINTMENT">
-                    <div className="filter-button" onClick={(e) => this.props.handleFilterToggle(e)}><Fa.FaFilter /></div>
-                    <div className="grid-caption">{ this.props.headerCell.caption }</div>
-                    <div className="sort-button">
-                        { this.props.sorted === 'ASC' ? <Md.MdArrowDropUp /> : this.props.sorted === 'DESC' ? <Md.MdArrowDropDown /> : null}
-                    </div>
-                    <input 
-                        type="text" 
-                        className= {
-                            classname('grid-filters', 
-                            { 'grid-filters--toggled': this.props.filterToggled, 'form-control': this.props.filterToggled })
-                        } 
-                    />
-                </th>
-            )
-        );
+        return ( this.props.connectDragSource &&
+			this.props.connectDropTarget &&
+			this.props.connectDragSource(
+				this.props.connectDropTarget(
+					<th className="grid__header-cell"  id="APPOINTMENT">
+						<div className="filter-button" onClick={(e) => this.props.handleFilterToggle(e)}><Fa.FaFilter /></div>
+						<div className="grid-caption" onClick={() => this.props.handleSorting()}>{ this.props.headerCell.caption }</div>
+						<div className="sort-button">
+							{ this.props.sorted === 'ASC' ? <Md.MdArrowDropUp /> : this.props.sorted === 'DESC' ? <Md.MdArrowDropDown /> : null}
+						</div>
+						{ this.getFilters() }
+					</th>
+				)
+			)
+		);
     }
 }
 
