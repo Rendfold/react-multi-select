@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './GridHeaderCell.scss';
 import TextInput from '../TextInput/TextInput';
 import MultiSelectUncontrolled from '../MultiSelect/MultiSelectUncontrolled';
-import ExactClick from '../helperComponents/ExactClick';
 
 import classname from 'classnames';
 import { findDOMNode } from 'react-dom'
@@ -17,7 +16,15 @@ const boxSource = {
 			id: props.id,
 			index: props.index,
 		}
-	}
+    },
+    isDragging(props, monitor) {
+        if(monitor.getItem().id === props.id) {
+            return {
+                id: props.id,
+                index: props.index
+            }
+        }
+    }
 }
 
 const boxDrop = {
@@ -55,12 +62,12 @@ const boxDrop = {
 	},
 }
 
-@DragSource('APPOINTMENT', boxSource, (connect, monitor) => ({
+@DragSource('HEADER', boxSource, (connect, monitor) => ({
     connectDragSource: connect.dragSource(),
     isDragging: monitor.isDragging(),
 }))
 
-@DropTarget('APPOINTMENT', boxDrop, (connect, monitor) => ({
+@DropTarget('HEADER', boxDrop, (connect, monitor) => ({
     connectDropTarget: connect.dropTarget()
 }))
 
@@ -97,11 +104,13 @@ class GridHeaderCell extends Component {
 	}
 
     render () {
+        const opacity = this.props.isDragging ? 0 : 1;
+
         return ( this.props.connectDragSource &&
 			this.props.connectDropTarget &&
 			this.props.connectDragSource(
 				this.props.connectDropTarget(
-					<th className="grid__header-cell"  id="APPOINTMENT">
+					<th style={{ opacity }} className="grid__header-cell"  id="HEADER">
 						<div className="filter-button" onClick={(e) => this.props.handleFilterToggle(e)}><Fa.FaFilter /></div>
 						<div className="grid-caption" onClick={() => this.props.handleSorting()}>{ this.props.headerCell.caption }</div>
 						<div className="sort-button">

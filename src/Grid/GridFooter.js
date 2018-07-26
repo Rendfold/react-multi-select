@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
+import PaginationComponent from '../PaginationComponent/PaginationComponent'
+import ReactPaginate from 'react-paginate';
 import './GridFooter.scss';
 
 class GridFooter extends Component {
@@ -7,78 +8,36 @@ class GridFooter extends Component {
         super(props);
 
         this.state = {
-
+            offset: 0
         };
-    }
-
-    generatePagination () {
-        let numberOfPages = 480 / 10 //this.props.totalData / this.props.dataPerPage; 
-        
-        if(numberOfPages > 10) {
-            return (
-                <React.Fragment>
-                    <PaginationItem>
-                        <PaginationLink href="#">
-                            1
-                        </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationLink href="#">
-                            2
-                        </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationLink href="#">
-                            3
-                        </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem disabled>
-                        <PaginationLink href="#">
-                            ...
-                        </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationLink href="#">
-                            {numberOfPages - 2}
-                        </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationLink href="#">
-                            {numberOfPages - 1}
-                        </PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                        <PaginationLink href="#">
-                            {numberOfPages}
-                        </PaginationLink>
-                    </PaginationItem>
-                </React.Fragment>
-            );
-        }
     }
 
     render() {
         return (
-            <div className="grid__footer clearfix">
-                <div className="grid__footer-table-cell">
+            <div className="grid__footer">
+                <div className="grid__footer-table-cell clearfix">
                     <div className="grid__footer-left-part">
-                        <select value={this.props.items} onChange={(event) => this.props.onItemsAmountChange(event.target.value)}>
+                        <select className="form-control" value={this.props.items} onChange={(event) => this.props.onItemsAmountChange(event.target.value)}>
                             <option value="10">10</option>
                             <option value="25">25</option>
                             <option value="50">50</option>
                         </select>
                     </div>
                     <div className="grid__footer-right-part">
-                        
-                    <Pagination aria-label="Page navigation example">
-                        <PaginationItem>
-                            <PaginationLink previous href="#" />
-                        </PaginationItem>
-                        {this.generatePagination()}
-                        <PaginationItem>
-                            <PaginationLink next href="#" />
-                        </PaginationItem>
-                    </Pagination>
+                        {/* <PaginationComponent total={this.props.total} page={this.props.page} items={this.props.items} /> */}
+                        <nav >
+                            <ReactPaginate previousLabel={"<<"}
+                                nextLabel={">>"}
+                                breakLabel={<a style={{cursor: 'auto'}}>...</a>}
+                                breakClassName={"break-me"}
+                                pageCount={this.props.total / this.props.items}
+                                marginPagesDisplayed={3}
+                                pageRangeDisplayed={2}
+                                onPageChange={(value) => this.props.handlePageClick(value)}
+                                containerClassName={"grid__footer-pagination"}
+                                subContainerClassName={"pages pagination"}
+                                activeClassName={"active"}/>
+                        </nav>
                     </div>
                 </div>
             </div>

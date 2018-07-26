@@ -22,7 +22,6 @@ class MultiSelectUncontrolled extends Component {
             toggled: true
         });
 
-        debugger;
         this.props.handleOpen(e);
     }
   }
@@ -31,10 +30,6 @@ class MultiSelectUncontrolled extends Component {
     this.setState({
       toggled: false
     });
-  }
-
-  handleSearch (searchString) {
-    debugger;
   }
 
   render() {

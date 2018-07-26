@@ -27,7 +27,7 @@ class GridHeader extends Component {
                         sorted={sortedColumn ? sortedColumn[headerCell.name] : undefined}
                         moveColumn={(dragIndex, hoverIndex) => this.props.moveColumn(dragIndex, hoverIndex)}
                         headerCell={headerCell} 
-                        id={index}
+                        id={headerCell.name}
                         key={index}
                         index={index} />
                 );

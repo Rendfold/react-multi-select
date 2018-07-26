@@ -28,11 +28,19 @@ class GridOptions extends Component {
     render() {
         return (
             <div className="grid__options">
-                <Button onClick={() => this.props.removeSorting()}>
+                <Button onClick={() => this.props.makeGridStateDefault()} color="primary">
+                    Make default
+                </Button>
+
+                <Button onClick={() => this.props.saveGridState()} color="primary">
+                    სიის შენახვა
+                </Button>
+
+                <Button onClick={() => this.props.removeSorting()} color="primary">
                     სორტირების წაშლა
                 </Button>
 
-                <Button id="Popover1" onClick={() => this.toggle()}>
+                <Button id="Popover1" onClick={() => this.toggle()} color="primary">
                     სვეტები
                 </Button>
         

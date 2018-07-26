@@ -5,16 +5,12 @@ import GridFooter from './GridFooter';
 import GridOptions from './GridOptions';
 import './Grid.scss';
 
-
 import { DragDropContext } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend';
 
 @DragDropContext(HTML5Backend)
 
 class Grid extends Component {
-    constructor (props) {
-        super(props);
-    }
 
     render() {
         return (
@@ -22,7 +18,9 @@ class Grid extends Component {
                 <GridOptions 
                     columns={this.props.data.columns} 
                     handleColumnConfigClick={(item) => this.props.handleColumnConfigClick(item)} 
-                    removeSorting={() => this.props.removeSorting()}/>
+                    removeSorting={() => this.props.removeSorting()}
+                    saveGridState={() => this.props.saveGridState()}
+                    makeGridStateDefault={() => this.props.makeGridStateDefault()} />
                 <table className="grid">
                     <GridHeader 
                         columns={this.props.data.columns} 
@@ -34,7 +32,12 @@ class Grid extends Component {
                         />
                     <GridBody rows={this.props.data.records} columns={this.props.data.columns} />
                 </table>
-                <GridFooter total={this.props.data.total} page={this.props.data.page} items={this.props.data.items} onItemsAmountChange={(value) => this.props.onItemsAmountChange(value)} />
+                <GridFooter 
+                    total={this.props.data.total} 
+                    page={this.props.data.page} 
+                    items={this.props.data.items} 
+                    onItemsAmountChange={(value) => this.props.onItemsAmountChange(value)}
+                    handlePageClick={(value) => this.props.handlePageClick(value)} />
             </div>
         );
     }
