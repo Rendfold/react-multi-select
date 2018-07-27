@@ -7,13 +7,13 @@ class GridBodyRowCell extends Component {
             return this.props.value ? <div>✔</div> : <div>✘</div>;
         }
         else if (this.props.valueType === 'text' || this.props.valueType === 'integer') {
-            return this.props.value;
+            return this.props.value ? this.props.value : '-';
         }
         else if (this.props.valueType === 'dictionary') {
-            return this.props.value.name;
+            return this.props.value ? this.props.value.name : '-';
         }
         else if (this.props.valueType === 'date_period') {
-            return this.props.value;
+            return this.props.value ? this.props.value : '-';
         }
     }
 
