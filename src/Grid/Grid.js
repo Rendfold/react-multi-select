@@ -51,7 +51,7 @@ class Grid extends Component {
                         moveColumn={(dragIndex, hoverIndex) => this.props.moveColumn(dragIndex, hoverIndex)}
                         filterToggled={this.props.filterToggled}
                         />
-                    <GridBody rows={this.props.data.records} columns={this.checkForSavedOptions()} />
+                    <GridBody rows={this.props.data.records} columns={this.checkForSavedOptions()} buttons={this.props.buttons} />
                 </table>
                 <GridFooter 
                     total={this.props.data.total} 

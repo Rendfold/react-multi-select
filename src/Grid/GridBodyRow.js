@@ -23,10 +23,25 @@ class GridBodyRow extends Component {
         });
     }
 
+    generateButtons () {
+        return this.props.buttons.map((button, index) => {
+            return (
+                React.cloneElement(button, { key: index })
+            )
+        })
+    }
+
     render() {
+        let {
+            buttons: Buttons = () => null
+        } = this.props;
+
         return (
             <tr className="grid__body-row">
                 {this.generateCells()}
+                <td className="grid__body-row-cell">
+                    <Buttons/>
+                </td>
             </tr>
         );
     }

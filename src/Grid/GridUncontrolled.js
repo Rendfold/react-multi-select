@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button } from 'reactstrap';
 import Grid from './Grid';
 
 class GridUncontrolled extends Component {
@@ -16,14 +17,14 @@ class GridUncontrolled extends Component {
                         options: {
                             columns: [
                                 {
-                                        name: "email",
-                                        caption: "Email",
-                                        type: "text",
-                                        visible: true,
-                                        select: {
-                                            table: "umg_accounts",
-                                            as: "email"
-                                        }
+                                    name: "email",
+                                    caption: "Email",
+                                    type: "text",
+                                    visible: true,
+                                    select: {
+                                        table: "umg_accounts",
+                                        as: "email"
+                                    }
                                 },
                                 {
                                     name: "mark_for_deletion",
@@ -36,6 +37,7 @@ class GridUncontrolled extends Component {
                                     }
                                 },
                                 {
+                                    name: "name",
                                     caption: "First name",
                                     type: "text",
                                     visible: true,
@@ -45,6 +47,7 @@ class GridUncontrolled extends Component {
                                     }
                                 },
                                 {
+                                    name: "status",
                                     caption: "Status",
                                     type: "dictionary",
                                     options: {
@@ -62,37 +65,38 @@ class GridUncontrolled extends Component {
                                     filter: null
                                 },
                                 {
-                                        caption: "permission",
-                                        type: "dictionary",
-                                        options: {
-                                            "model_name": "Umg::Permission",
-                                            "context": "enum"
-                                        },
-                                        select: {
-                                            table: "umg_permissions",
-                                            fields: [
-                                                "id",
-                                                "name"
-                                            ]
-                                        },
-                                        filter: null,
-                                        visible: true
+                                    name: "permission",
+                                    caption: "permission",
+                                    type: "dictionary",
+                                    options: {
+                                        "model_name": "Umg::Permission",
+                                        "context": "enum"
+                                    },
+                                    select: {
+                                        table: "umg_permissions",
+                                        fields: [
+                                            "id",
+                                            "name"
+                                        ]
+                                    },
+                                    filter: null,
+                                    visible: true
                                 },
                                 {
-                                        name: "created_at",
-                                        caption: "created_at",
-                                        type: "date_period",
-                                        select: {
-                                            "field": "umg_accounts.created_at",
-                                            "as": "created_at"
-                                        },
-                                        filter: {
-                                            "value": {
-                                                "start_date": "2018-07-18T10:54:47T00:00:00.000Z",
-                                                "end_date": "2018-07-23T10:54:47T00:00:00.000Z"
-                                            }
-                                        },
-                                        visible: true
+                                    name: "created_at",
+                                    caption: "created_at",
+                                    type: "date_period",
+                                    select: {
+                                        "field": "umg_accounts.created_at",
+                                        "as": "created_at"
+                                    },
+                                    filter: {
+                                        "value": {
+                                            "start_date": "2018-07-18T10:54:47T00:00:00.000Z",
+                                            "end_date": "2018-07-23T10:54:47T00:00:00.000Z"
+                                        }
+                                    },
+                                    visible: true
                                 }
                             ]
                         },
@@ -106,96 +110,96 @@ class GridUncontrolled extends Component {
                         options: {
                             columns: [
                                 {
-                                        name: "id",
-                                        caption: "Id",
-                                        type: "integer",
-                                        visible: true,
-                                        select: {
-                                            table: "umg_accounts",
-                                            as: "id"
+                                    name: "id",
+                                    caption: "Id",
+                                    type: "integer",
+                                    visible: true,
+                                    select: {
+                                        table: "umg_accounts",
+                                        as: "id"
+                                    }
+                                },
+                                {
+                                    name: "email",
+                                    caption: "Email",
+                                    type: "text",
+                                    visible: true,
+                                    select: {
+                                        table: "umg_accounts",
+                                        as: "email"
+                                    }
+                                },
+                                {
+                                    name: "mark_for_deletion",
+                                    caption: "Mark for deletion",
+                                    type: "boolean",
+                                    visible: true,
+                                    select: {
+                                        table: "umg_accounts",
+                                        as: "mark_for_deletion"
+                                    }
+                                },
+                                {
+                                    name: "first_name",
+                                    caption: "First name",
+                                    type: "text",
+                                    visible: true,
+                                    select: {
+                                        table: "umg_profiles",
+                                        as: "first_name"
+                                    }
+                                },
+                                {
+                                    name: "status",
+                                    caption: "Status",
+                                    type: "dictionary",
+                                    options: {
+                                        model_name: "Umg::Status",
+                                        context: "enum"
+                                    },
+                                    select: {
+                                        table: "umg_statuses",
+                                        fields: [
+                                            "id",
+                                            "name"
+                                        ]
+                                    },
+                                    visible: true,
+                                    filter: null
+                                },
+                                {
+                                    name: "permission",
+                                    caption: "permission",
+                                    type: "dictionary",
+                                    options: {
+                                        model_name: "Umg::Permission",
+                                        context: "enum"
+                                    },
+                                    select: {
+                                        table: "umg_permissions",
+                                        fields: [
+                                            "id",
+                                            "name"
+                                        ]
+                                    },
+                                    filter: null,
+                                    visible: true
+                                },
+                                {
+                                    name: "created_at",
+                                    caption: "created_at",
+                                    type: "date_period",
+                                    select: {
+                                        field: "umg_accounts.created_at",
+                                        as: "created_at"
+                                    },
+                                    filter: {
+                                        value: {
+                                            start_date: "2018-07-18T10:54:47T00:00:00.000Z",
+                                            end_date: "2018-07-23T10:54:47T00:00:00.000Z"
                                         }
-                                },
-                                {
-                                        name: "email",
-                                        caption: "Email",
-                                        type: "text",
-                                        visible: true,
-                                        select: {
-                                            table: "umg_accounts",
-                                            as: "email"
-                                        }
-                                },
-                                {
-                                        name: "mark_for_deletion",
-                                        caption: "Mark for deletion",
-                                        type: "boolean",
-                                        visible: true,
-                                        select: {
-                                            table: "umg_accounts",
-                                            as: "mark_for_deletion"
-                                        }
-                                },
-                                {
-                                        name: "first_name",
-                                        caption: "First name",
-                                        type: "text",
-                                        visible: true,
-                                        select: {
-                                            table: "umg_profiles",
-                                            as: "first_name"
-                                        }
-                                },
-                                {
-                                        name: "status",
-                                        caption: "Status",
-                                        type: "dictionary",
-                                        options: {
-                                            model_name: "Umg::Status",
-                                            context: "enum"
-                                        },
-                                        select: {
-                                            table: "umg_statuses",
-                                            fields: [
-                                                "id",
-                                                "name"
-                                            ]
-                                        },
-                                        visible: true,
-                                        filter: null
-                                },
-                                {
-                                        name: "permission",
-                                        caption: "permission",
-                                        type: "dictionary",
-                                        options: {
-                                            model_name: "Umg::Permission",
-                                            context: "enum"
-                                        },
-                                        select: {
-                                            table: "umg_permissions",
-                                            fields: [
-                                                "id",
-                                                "name"
-                                            ]
-                                        },
-                                        filter: null,
-                                        visible: true
-                                },
-                                {
-                                        name: "created_at",
-                                        caption: "created_at",
-                                        type: "date_period",
-                                        select: {
-                                            field: "umg_accounts.created_at",
-                                            as: "created_at"
-                                        },
-                                        filter: {
-                                            value: {
-                                                start_date: "2018-07-18T10:54:47T00:00:00.000Z",
-                                                end_date: "2018-07-23T10:54:47T00:00:00.000Z"
-                                            }
-                                        },
-                                        visible: true
+                                    },
+                                    visible: true
                                 }
                             ]
                         },
@@ -300,17 +304,14 @@ class GridUncontrolled extends Component {
                 total: 250,
                 page: 1,
                 items: 25,
-                selectedOption: {
-                    id: 8,
-                    name: 'some list222'
-                }
+                selectedOption: null
             },
             filterToggled: false
         };
     }
 
     componentDidMount () {
-        // initial request here
+        // initial request here with model name
     }
 
     saveGridState () {
@@ -438,18 +439,66 @@ class GridUncontrolled extends Component {
     }
 
     moveColumn (dragIndex, hoverIndex) {
-		let columns = this.state.data.columns.slice();
-        let dragedColumn = columns[dragIndex];
+        if (this.state.data.selectedOption) {
+            for(let i = 0; i < this.state.data.list_options.length; i++) {
+                if (this.state.data.list_options[i].id === this.state.data.selectedOption.id) {
+                    let columns = this.state.data.list_options[i].options.columns.slice();
+                    let dragedColumn = columns[dragIndex];
 
-        columns[dragIndex] = columns[hoverIndex];
-        columns[hoverIndex] = dragedColumn;
-
-		this.setState({
-            data: {
-                ...this.state.data,
-                columns: columns
+                    columns[dragIndex] = columns[hoverIndex];
+                    columns[hoverIndex] = dragedColumn;
+            
+                    this.setState({
+                        data: {
+                            ...this.state.data,
+                            list_options: {
+                                ...this.state.data.list_options,
+                                options: {
+                                    columns: columns.slice(0, i).concat(columns.slice(i + 1))
+                                }
+                            }
+                        }
+                    });
+                }
             }
-        });
+        }
+        else if (this.state.data.list_options.length) {
+            for(let i = 0; i < this.state.data.list_options.length; i++) {
+                if (this.state.data.list_options[i].is_default) {
+                    let columns = this.state.data.list_options[i].options.columns.slice();
+                    let dragedColumn = columns[dragIndex];
+
+                    columns[dragIndex] = columns[hoverIndex];
+                    columns[hoverIndex] = dragedColumn;
+            
+                    this.setState({
+                        data: {
+                            ...this.state.data,
+                            list_options: {
+                                ...this.state.data.list_options,
+                                options: {
+                                    columns: columns.slice(0, i).concat(columns.slice(i + 1))
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+        }
+        else {
+            let columns = this.state.data.columns.slice();
+            let dragedColumn = columns[dragIndex];
+    
+            columns[dragIndex] = columns[hoverIndex];
+            columns[hoverIndex] = dragedColumn;
+    
+            this.setState({
+                data: {
+                    ...this.state.data,
+                    columns: columns
+                }
+            });
+        }
     }
     
     onItemsAmountChange (value) {
@@ -487,7 +536,8 @@ class GridUncontrolled extends Component {
             handleSorting={(headerCell) => this.handleSorting(headerCell)}
             removeSorting={() => this.removeSorting()}
             filterToggled={this.state.filterToggled}
-            moveColumn={(dragIndex, hoverIndex) => this.moveColumn(dragIndex, hoverIndex)}/>
+            moveColumn={(dragIndex, hoverIndex) => this.moveColumn(dragIndex, hoverIndex)}
+            buttons={this.props.buttons}/>
         );
     }
 }

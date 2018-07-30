@@ -11,7 +11,11 @@ class Test extends Component {
 
     render() {
         return (
-            <GridUncontrolled name="company-list"/>
+            <GridUncontrolled 
+                name="company-list"
+                buttons={({ record }) => (
+                    <div> test </div>
+                )}/>
         );
     }
 }

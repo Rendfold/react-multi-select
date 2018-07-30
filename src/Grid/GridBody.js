@@ -13,7 +13,7 @@ class GridBody extends Component {
     generateRows () {
         return this.props.rows.map((row, index) => {
             return (
-                <GridBodyRow row={row} columns={this.props.columns} key={index} />
+                <GridBodyRow row={row} columns={this.props.columns} key={index} buttons={this.props.buttons} />
             );
         })
     }

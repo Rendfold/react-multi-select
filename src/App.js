@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Test from './Grid/Test';
+//import Test from './MultiSelect/Test';
 import './index.scss';
 
 class App extends Component {

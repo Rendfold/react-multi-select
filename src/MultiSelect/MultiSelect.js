@@ -41,15 +41,18 @@ class MultiSelect extends Component {
   removeItem (item) {
     let itemIndex = this.props.value.indexOf(item);
     
-    this.props.onChange(this.props.value.slice(0, itemIndex).concat(this.props.value.slice(itemIndex+1)));
+    this.props.onChange(this.props.value.slice(0, itemIndex).concat(this.props.value.slice(itemIndex + 1)));
   }
 
   handleItemAdd (item) {
-    this.props.handleToggleOnItemAdd();
+    let {
+      handleToggleOnItemAdd,
+      value,
+      onChange
+    } = this.props;
 
-    let newValue = this.props.value.concat(Object.assign(item));
-
-    this.props.onChange(newValue);
+    handleToggleOnItemAdd();
+    onChange(value.concat(Object.assign(item)));
   }
 
   render() {

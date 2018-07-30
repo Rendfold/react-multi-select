@@ -13,7 +13,8 @@ class GridHeader extends Component {
 
 
     generateHeaderCells () {
-        return this.props.columns.map((headerCell, index) => {
+
+        return this.props.columns.concat({name: 'buttons', visible: true}).map((headerCell, index) => {
             if(headerCell.visible) {
                 let sortedColumn = this.props.order.find((sortedItem) => {
                     return headerCell.name in sortedItem;
@@ -26,10 +27,12 @@ class GridHeader extends Component {
                         handleSorting={() => this.props.handleSorting(headerCell)}
                         sorted={sortedColumn ? sortedColumn[headerCell.name] : undefined}
                         moveColumn={(dragIndex, hoverIndex) => this.props.moveColumn(dragIndex, hoverIndex)}
+                        hasButtons={this.props.hasButtons && this.props.columns.length === index}
                         headerCell={headerCell} 
                         id={headerCell.name}
                         key={index}
-                        index={index} />
+                        index={index}
+                        canDrag={headerCell.name !== 'buttons'} />
                 );
             }
             else {

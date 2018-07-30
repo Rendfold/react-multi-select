@@ -32,6 +32,11 @@ const boxDrop = {
 		if (!component) {
 			return null
 		}
+
+		if (!props.canDrag) {
+			return;
+		}
+
 		const dragIndex = monitor.getItem().index;
 		const hoverIndex = props.index;
 
@@ -40,19 +45,12 @@ const boxDrop = {
 		}
 
 		const hoverBoundingRect = (findDOMNode(component)).getBoundingClientRect();
-
 		const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-
 		const clientOffset = monitor.getClientOffset();
-
 		const hoverClientY = (clientOffset).y - hoverBoundingRect.top;
 
 		// Only perform the move when the mouse has crossed half of the items width
-		if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-			return;
-		}
-
-		if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+		if ((dragIndex < hoverIndex && hoverClientY < hoverMiddleY) || (dragIndex > hoverIndex && hoverClientY > hoverMiddleY)) {
 			return;
 		}
 
@@ -66,7 +64,6 @@ const boxDrop = {
     connectDragSource: connect.dragSource(),
     isDragging: monitor.isDragging(),
 }))
-
 @DropTarget('HEADER', boxDrop, (connect, monitor) => ({
     connectDropTarget: connect.dropTarget()
 }))

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PaginationComponent from '../PaginationComponent/PaginationComponent'
 import ReactPaginate from 'react-paginate';
 import './GridFooter.scss';
 
@@ -24,7 +23,6 @@ class GridFooter extends Component {
                         </select>
                     </div>
                     <div className="grid__footer-right-part">
-                        {/* <PaginationComponent total={this.props.total} page={this.props.page} items={this.props.items} /> */}
                         <nav >
                             <ReactPaginate previousLabel={"<<"}
                                 nextLabel={">>"}
