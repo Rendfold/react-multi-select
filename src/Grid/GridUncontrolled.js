@@ -454,10 +454,7 @@ class GridUncontrolled extends Component {
                     this.setState({
                         data: {
                             ...this.state.data,
-                            list_options: {
-                                ...this.state.data.list_options,
-                                list_options: list_options
-                            }
+                            list_options: list_options
                         }
                     });
                 }
@@ -501,7 +498,6 @@ class GridUncontrolled extends Component {
     }
 
     onGridOptionChange (value) {
-        debugger;
         this.setState({
             data: {
                 ...this.state.data,
