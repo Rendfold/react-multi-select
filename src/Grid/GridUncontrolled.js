@@ -443,19 +443,20 @@ class GridUncontrolled extends Component {
             for(let i = 0; i < this.state.data.list_options.length; i++) {
                 if (this.state.data.list_options[i].id === this.state.data.selectedOption.id) {
                     let columns = this.state.data.list_options[i].options.columns.slice();
+                    let list_options = this.state.data.list_options.slice();
                     let dragedColumn = columns[dragIndex];
 
                     columns[dragIndex] = columns[hoverIndex];
                     columns[hoverIndex] = dragedColumn;
-            
+                    
+                    list_options[i].options.columns = columns;
+
                     this.setState({
                         data: {
                             ...this.state.data,
                             list_options: {
                                 ...this.state.data.list_options,
-                                options: {
-                                    columns: columns.slice(0, i).concat(columns.slice(i + 1))
-                                }
+                                list_options: list_options
                             }
                         }
                     });
@@ -466,20 +467,18 @@ class GridUncontrolled extends Component {
             for(let i = 0; i < this.state.data.list_options.length; i++) {
                 if (this.state.data.list_options[i].is_default) {
                     let columns = this.state.data.list_options[i].options.columns.slice();
+                    let list_options = this.state.data.list_options.slice();
                     let dragedColumn = columns[dragIndex];
 
                     columns[dragIndex] = columns[hoverIndex];
                     columns[hoverIndex] = dragedColumn;
-            
+
+                    list_options[i].options.columns = columns;
+
                     this.setState({
                         data: {
                             ...this.state.data,
-                            list_options: {
-                                ...this.state.data.list_options,
-                                options: {
-                                    columns: columns.slice(0, i).concat(columns.slice(i + 1))
-                                }
-                            }
+                            list_options: list_options
                         }
                     });
                 }
@@ -499,6 +498,19 @@ class GridUncontrolled extends Component {
                 }
             });
         }
+    }
+
+    onGridOptionChange (value) {
+        debugger;
+        this.setState({
+            data: {
+                ...this.state.data,
+                selectedOption: {
+                    id: value.id,
+                    name: value.name
+                }
+            }
+        })
     }
     
     onItemsAmountChange (value) {
@@ -537,7 +549,8 @@ class GridUncontrolled extends Component {
             removeSorting={() => this.removeSorting()}
             filterToggled={this.state.filterToggled}
             moveColumn={(dragIndex, hoverIndex) => this.moveColumn(dragIndex, hoverIndex)}
-            buttons={this.props.buttons}/>
+            buttons={this.props.buttons}
+            onGridOptionChange={(value) => this.onGridOptionChange(value)}/>
         );
     }
 }

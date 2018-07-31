@@ -25,9 +25,21 @@ class GridOptions extends Component {
         });
     }
 
+    generateOptionList () {
+        return this.props.gridOptionsList.map((option, index) => {
+            return (
+                <option value={index} key={index} >{option.name}</option>
+            )
+        });
+    }
+
     render() {
         return (
             <div className="grid__options">
+                <select className="form-control" onClick={(e) => { this.props.onGridOptionChange(this.props.gridOptionsList[e.target.value])}}>
+                    { this.generateOptionList() }
+                </select>
+
                 <Button onClick={() => this.props.makeGridStateDefault()} color="primary">
                     Make default
                 </Button>

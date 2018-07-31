@@ -41,7 +41,9 @@ class Grid extends Component {
                     handleColumnConfigClick={(item) => this.props.handleColumnConfigClick(item)} 
                     removeSorting={() => this.props.removeSorting()}
                     saveGridState={() => this.props.saveGridState()}
-                    makeGridStateDefault={() => this.props.makeGridStateDefault()} />
+                    makeGridStateDefault={() => this.props.makeGridStateDefault()}
+                    gridOptionsList={this.props.data.list_options}
+                    onGridOptionChange={(value) => this.props.onGridOptionChange(value)}/>
                 <table className="grid">
                     <GridHeader 
                         columns={this.checkForSavedOptions()} 
