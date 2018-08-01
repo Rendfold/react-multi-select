@@ -439,62 +439,18 @@ class GridUncontrolled extends Component {
     }
 
     moveColumn (dragIndex, hoverIndex) {
-        if (this.state.data.selectedOption) {
-            for(let i = 0; i < this.state.data.list_options.length; i++) {
-                if (this.state.data.list_options[i].id === this.state.data.selectedOption.id) {
-                    let columns = this.state.data.list_options[i].options.columns.slice();
-                    let list_options = this.state.data.list_options.slice();
-                    let dragedColumn = columns[dragIndex];
+        let columns = this.state.data.columns.slice();
+        let dragedColumn = columns[dragIndex];
 
-                    columns[dragIndex] = columns[hoverIndex];
-                    columns[hoverIndex] = dragedColumn;
-                    
-                    list_options[i].options.columns = columns;
-
-                    this.setState({
-                        data: {
-                            ...this.state.data,
-                            list_options: list_options
-                        }
-                    });
-                }
+        columns[dragIndex] = columns[hoverIndex];
+        columns[hoverIndex] = dragedColumn;
+        
+        this.setState({
+            data: {
+                ...this.state.data,
+                columns: columns
             }
-        }
-        else if (this.state.data.list_options.length) {
-            for(let i = 0; i < this.state.data.list_options.length; i++) {
-                if (this.state.data.list_options[i].is_default) {
-                    let columns = this.state.data.list_options[i].options.columns.slice();
-                    let list_options = this.state.data.list_options.slice();
-                    let dragedColumn = columns[dragIndex];
-
-                    columns[dragIndex] = columns[hoverIndex];
-                    columns[hoverIndex] = dragedColumn;
-
-                    list_options[i].options.columns = columns;
-
-                    this.setState({
-                        data: {
-                            ...this.state.data,
-                            list_options: list_options
-                        }
-                    });
-                }
-            }
-        }
-        else {
-            let columns = this.state.data.columns.slice();
-            let dragedColumn = columns[dragIndex];
-    
-            columns[dragIndex] = columns[hoverIndex];
-            columns[hoverIndex] = dragedColumn;
-    
-            this.setState({
-                data: {
-                    ...this.state.data,
-                    columns: columns
-                }
-            });
-        }
+        });
     }
 
     onGridOptionChange (value) {
