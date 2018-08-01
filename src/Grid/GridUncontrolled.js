@@ -303,8 +303,7 @@ class GridUncontrolled extends Component {
                 order: [],
                 total: 250,
                 page: 1,
-                items: 25,
-                selectedOption: null
+                items: 25
             },
             filterToggled: false
         };
